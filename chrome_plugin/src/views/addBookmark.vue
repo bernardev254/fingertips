@@ -168,9 +168,11 @@ export default{
 }
 .save:hover{
     background-color: #1E2749;
+
 }
 .profile:hover{
     color: #76c893;
+    transform: translate(-4px, -4px);
 }
 
 </style>

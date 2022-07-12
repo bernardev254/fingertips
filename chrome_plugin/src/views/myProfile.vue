@@ -3,9 +3,9 @@
         <div class="header">
             <myHeader/>
             <div class="links">
-                <span @click="toggleBookmarks">my bookmarks</span>
-                <span @click="add_bookmark">add Bookmark</span>
-                <span @click="logout">Logout</span>
+                <span class="linkbtn" @click="toggleBookmarks">my bookmarks</span>
+                <span class="linkbtn" @click="add_bookmark">add Bookmark</span>
+                <span class="linkbtn" @click="logout">Logout</span>
             </div>
         </div>
         <div class="books" :key="bookmark.id" v-for="bookmark in my_bookmarks.bookmarks">
@@ -95,11 +95,12 @@ import myHeader from '../components/myHeader.vue'
 <style scoped>
 .links{   
     float: right;
+    margin-top: 15px;
 }
 .links span{
     width: 25%;
     margin-left:15px; 
-    margin-top: 5px;
+    margin-top: 15px;
     height: 25px;
     border-radius: 5px;
     background-color:  white;
@@ -108,10 +109,20 @@ import myHeader from '../components/myHeader.vue'
     cursor:pointer;
     
 }
+.linkbtn:hover{
+    color: #76c893;
+    transform: translate(-4px, -4px);
+    
+}
+
 .books{
     display:flex;
-    width: 80%;
-    margin: auto;
+    width: 90%;
+    margin: 20px auto;
+}
+.books:hover{
+    transform: translate(-10px, -10px);
+
 }
 .books a{
     text-decoration: none;
@@ -125,7 +136,8 @@ import myHeader from '../components/myHeader.vue'
 }
 .left{
     flex: 5;
-    margin-top: 20px;
+    margin: auto;
+    height: 50%;
 
 }
 .left img{

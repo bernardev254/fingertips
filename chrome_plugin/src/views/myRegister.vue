@@ -9,10 +9,12 @@
             <input v-model="email" type="text" placeholder="username@gmail.com" required/>
             <label id="lbl">Password</label>
             <input v-model="password" type="password" placeholder="password" required/>
-            <button @click="onFinish">Finish</button>
+            
             
 
         </div>
+        <button class="register" @click="onFinish">Register</button>
+        <button class="login" @click="login">login</button>
 
     </div>
 </div>
@@ -37,6 +39,9 @@ export default{
 
             await this.getUserData();
         },
+        login(){
+            this.$router.push('/login')
+        },
         
         async getUserData() {
             const userData = {
@@ -53,18 +58,19 @@ export default{
                 },
                 body: JSON.stringify(userData)
             });
-            await response.json();
+            const res = await response.json();
             
             this.username = "";
             this.email = "";
             this.password ="";
             
             if (response.status === 201) {
-                await this.$router.push('/login')
+                this.$router.push('/login')
 
             }
             if (response.status === 400) {
-                this.$router.push("/login");
+                    alert(res.error)
+                }
                 //alert("all fields are mandatory")
             }
 
@@ -72,7 +78,6 @@ export default{
 
     }
 
-}
 </script>
 <style scoped>
 .form{
@@ -96,17 +101,25 @@ export default{
     border: 1px solid aqua;
     border-radius: 4px;     
 }
-button{
-    width: 50%; 
-    margin:20px auto;
-    height: 25px;
+.register{
     border-radius: 5px;
     background-color:  #7CAFC4;
     color:white;
+    margin-left: 20px;
     font-size: 14px;
-    padding:3px 0;
+    margin-bottom: 20px;
+    margin-right: 50px;
+}
+.login{
+    margin-left: 20px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    color: white;
+    background-color: rgb(0, 183, 255);
 }
 button:hover{
     background-color: #1E2749;
+    transform: translate(-1px, -1px);
 }
 </style>

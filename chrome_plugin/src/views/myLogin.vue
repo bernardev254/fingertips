@@ -55,14 +55,14 @@ export default{
             
             if (response.status === 200) {
                 this.$router.push("/addBookmark");
-                this.$store.dispatch('saveAccessToken', res.user.access)
+                this.$store.dispatch('saveAccessToken', res.access)
 
             }
             else if (response.status === 404) {
                 alert("don't have an account?...sign up")
-                //this.$router.push('/register')
+            }
 
-            }else if (response.status === 401) {
+            else if (response.status === 401) {
                 alert("wrong credentials");
             }
 
