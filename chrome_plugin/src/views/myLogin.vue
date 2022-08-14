@@ -39,7 +39,7 @@ export default{
 
             this.authData = userData;
 
-            const response = await fetch("http://127.0.0.1:5000/api/v1/auth/login",{
+            const response = await fetch("http://fingertips.bkaraba.tech/api/v1/auth/login",{
                 method: "POST",
                 mode: "cors",
                 headers: {

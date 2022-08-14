@@ -1,4 +1,5 @@
 from crypt import methods
+from email import message
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_cors import cross_origin, CORS
@@ -92,5 +93,27 @@ def get_bookmarks():
         return jsonify({
             "error":"failed to fetch bookmarks"
         }), 500
+
+@cross_origin(methods=['PATCH','OPTIONS'])
+@bookmarks.route('/update',methods=['PATCH'])
+@jwt_required()
+def my_update():
+    if request.method == 'OPTIONS':
+        return jsonify({"msg":"success"}), 200
+    data = request.get_json()
+    id = data.get('id')
+    try:
+        book = Bookmark.query.filter_by(id=id).first()
+        if book:
+            for key, value in data:
+                if key:
+                    book.key = value
+            db.session.commit()
+            return jsonify({"message":"updated successfully"}), 200
+        return jsonify({"msg":"update Error"}), 500
+    except:
+        return jsonify({"msg":"update Error"}), 500
+
+
 
 
