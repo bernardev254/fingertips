@@ -1,4 +1,4 @@
-# chrome_plugin
+# desktop frontend
 
 ## Project setup
 ```
