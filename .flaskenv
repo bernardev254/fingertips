@@ -1,4 +1,4 @@
-export FLASK_APP=./backend
+export FLASK_APP=./__init__
 export FLASK_ENV=development
 export SQLALCHEMY_DB_URI=sqlite:///bookmarks.db
 export JWT_SECRET_KEY='JWT-SECRET_KEY'

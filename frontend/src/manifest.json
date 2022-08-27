@@ -1,0 +1,12 @@
+  {
+    "manifest_version": 3,
+    "name": "Fingertips",
+    "version": "0.0.1",
+    "permissions": ["tabs","cookies"],
+    "content_security_policy": {
+      "extension_page": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
+    },
+    "action": {
+        "default_popup": "./index.html"
+    }
+}

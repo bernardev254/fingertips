@@ -4,7 +4,9 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from backend.database import User, db
 from flask_jwt_extended import create_access_token
 from flask_cors import cross_origin, CORS
-
+import requests
+import html
+from bs4 import BeautifulSoup as soup
 
 
 auth = Blueprint("auth", __name__, url_prefix='/api/v1/auth')
@@ -81,3 +83,13 @@ def login():
         return jsonify({
             "msg": "Not Found"
         }), 404
+
+@auth.route("/proxy",methods=["POST","OPTIONS"])
+@cross_origin(origins='*',methods=['POST','OPTIONS',])
+def proxy():
+    data = request.get_json()
+    url = data.get('url')
+    response = requests.get(url)
+    page = soup(response.text, "html.parser").prettify().replace('\n', " ")
+    return jsonify(page), 200
+
