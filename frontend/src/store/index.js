@@ -1,11 +1,14 @@
 import { createStore } from 'vuex';
 import router from '../router';
 
+
+
 // Create a new store instance.
 const store = createStore({
   state() {
-    return {
-      token: null
+      return {
+        token: !!localStorage.getItem('myToken')
+        
     }
   },
   mutations: {
@@ -14,14 +17,15 @@ const store = createStore({
     },
     logout(state){
       state.token = "";
-      router.push("login")
+      localStorage.removeItem('myToken')
+      router.push("/login")
     }
   },
   getters:{
     loggedIn: state => !!state.token
   },
   actions: {
-    saveAccessToken(context, access ) {
+    saveAccessToken(context, access) {
       context.commit('setToken', access)
     },
     logout({commit}){

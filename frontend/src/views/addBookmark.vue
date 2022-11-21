@@ -1,11 +1,7 @@
 <template>
     <myHeader text="Added Bookmark"/>
     <router-link to="/profile"> <span v-if="token" class="profile">profile</span></router-link>
-    <div class="tabshow">
-        <button class="prev" @click="prev">prev tab</button>
-        <button class="next" @click="next">next tab</button>
-    </div>
-    <div class="input">
+      <div class="input">
         <label id="lbl">Name</label>
         <input type="text" v-model="title" required/>
         <label id="lbl">Url</label>
@@ -45,28 +41,15 @@ export default{
         }
 
     },
-    async created() {
-        await this.get_tabs()     
+    async created() {     
         await this.loadBookmark()
-        this.index = setTimeout('getIdex', 3000)
     },
     computed:{
         loggedIn(){
             return this.$store.getters.loggedIn
         },
-        getIndex(){
-            return this.getActiveTabsIndex(this.tabs)
-        },
-        
     },
     methods: {
-        getActiveTabsIndex(){
-            for (let idx = 0; idx < this.tabs.length; idx++){
-                if (this.tabs[idx].active){
-                    return idx
-                }
-            }
-        },
         async loadBookmark() { 
             await chrome.tabs.query({active: true, currentWindow: true}, tabs => {
                 let activeTab = tabs[0];
@@ -79,42 +62,7 @@ export default{
                 this.icon = icon,
                 this.category = "chrome-bookmark"
             });
-        },
-            async get_tabs(){
-                await chrome.tabs.query({}, tabs => {
-                    this.tabs = tabs
-                })
-            },
-            
-            reloadBookmark(idx){
-                let activeTab = this.tabs[parseInt(idx)];
-                let title = activeTab.title;
-                let url = activeTab.url;
-                let icon = activeTab.favIconUrl;
-                this.title = title,
-                this.url = url,
-                this.desc = title,
-                this.icon = icon,
-                this.category = "chrome-bookmark"
-            },
-            next(){
-                if (this.index < this.tabs.length - 1){
-                    this.index += 1
-                }
-                else if(this.index <= this.tabs.length - 1){
-                    this.index = 0
-                }
-                this.reloadBookmark(this.index)
-            },
-            prev(){
-                if(this.index > 0){
-                    this.index -= 1
-                }
-                else{
-                    this.index = this.tabs.length - 1
-                }
-                this.reloadBookmark(this.index)
-            },
+        },   
         async onSave(event) {
             event.preventDefault();
             if (this.loggedIn)  {
@@ -140,7 +88,7 @@ export default{
                 "icon": this.icon
             };
 
-            const response = await fetch("http://fingertips.bkaraba.tech/api/v1/bookmarks/new", {
+            const response = await fetch("http://127.0.0.1:5000/api/v1/bookmarks/new", {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -174,22 +122,6 @@ export default{
 </script>
 
 <style scoped>
-.tabshow{
-    display: flex;
-    justify-content: center;
-    margin-top: 25px;
-}
-.tabshow button{
-    border: 1px solid #856c00;
-    border-radius: 5px;
-    color: white;
-    background-color: #7CAFC4;
-}
-.tabshow button:hover{
-    background-color: #188088;
-    color:white;
-    border: 1px solid aqua;
-}
 .input{
 
     display: flex;
@@ -201,7 +133,7 @@ export default{
     text-align: start;
     margin-left: 20px;
 }
-.input input , textarea{
+.input {
     width: 80%; 
     height:30px; 
     border: 1px solid aqua;
@@ -210,10 +142,11 @@ export default{
 }
 .input textarea
 {
+    resize: none;
     max-width: 80%;
     min-width: 80%;
     min-height: 50px;
-    max-height: 100px;
+    max-height: 50px;
 }
 .save{
     width: 50%; 

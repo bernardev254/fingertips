@@ -69,7 +69,7 @@ import myHeader from '../components/myHeader.vue'
         },
         methods: {
             async fetchBookmarks() {
-                const res= await fetch ("http://fingertips.bkaraba.tech/api/v1/bookmarks/my_bookmarks",{
+                const res= await fetch ("http://127.0.0.1:5000/api/v1/bookmarks/my_bookmarks",{
                     headers:{
                         "Authorization": "Bearer "+this.token
                     }
@@ -80,7 +80,7 @@ import myHeader from '../components/myHeader.vue'
             async up(id){
                 this.popup = true
                 if (confirm('Are you sure?')){
-                    const res = await fetch("http://fingertips.bkaraba.tech/api/v1/bookmarks/update", {
+                    const res = await fetch("http://127.0.0.1:5000/api/v1/bookmarks/update", {
                         method: "PATCH",
                         headers:{
                             "content-Type": "application/json",
@@ -96,25 +96,7 @@ import myHeader from '../components/myHeader.vue'
                     }              
                 }
             },
-            async del(id){
-                if (confirm('Are you sure?')){
-                    const res = await fetch("http://fingertips.bkaraba.tech/api/v1/bookmarks/remove", {
-                        method: "DELETE",
-                        headers:{
-                            "content-Type": "application/json",
-                            "Authorization": "Bearer "+this.token
-                        },
-                        body:JSON.stringify({"id":id})
-                    });
-                    if (res.status === 200 ){
-                        alert("updated")
-                        this.getBookmarks();
-                    }
-                    else{
-                         alert("Error updating")
-                    }              
-                }
-            },
+            
             async getBookmarks() {
                 if (this.token){
                     this.my_bookmarks = await this.fetchBookmarks();

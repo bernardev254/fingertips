@@ -1,8 +1,8 @@
 <template>
     <div class="header">
-        <h2>FingerTips</h2>
-        <h4>all my bookmarks at my fingertips</h4>
-        <h2 id="tittle">{{text}}</h2>
+        <h1>FingerTips</h1>
+        <h2>all my bookmarks at my fingertips</h2>
+        <h1 id="tittle">{{text}}</h1>
     </div>
     
 </template>
@@ -18,11 +18,11 @@ export default{
 <style scoped>
 
 .header{
-    background-color: #cbcecf;
+    background-color:aliceblue;
     
-    height: 100px;
+    height: 160px;
     padding: 30px;
-    color: #1fb2c5;
+    color: #010808;
     text-align: center;
 }
 #tittle{

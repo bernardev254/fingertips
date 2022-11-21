@@ -12,6 +12,10 @@ export default {
 <style scoped>
 footer{
     text-align: center;
-    margin-top: 30px;
+    justify-content: center;
+    margin-top: 25px;
+    bottom: .25%;
+    display: block;
+    position: absolute;
 }
 </style>

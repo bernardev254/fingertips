@@ -1,6 +1,5 @@
 <template>
    <router-view></router-view>
-   <myFooter/>
    </template>
 
 <script>
@@ -8,15 +7,28 @@
 //import myLogin from './components/myLogin.vue'
 //import addBookmark from './components/addBookmark.vue'
 //import myRegister from './components/myRegister.vue'
-import myFooter from './components/myFooter.vue'
 export default {
   name: 'App',
   components: {
-    myFooter,
   },
   created(){
-    this.$router.push('/login');
-  }
+    
+    if (!this.loggedIn){
+      this.$router.push('/root');
+    }
+    if (this.loggedIn){
+      this.$router.push('/home')
+    }
+       
+  },
+  computed:{
+        loggedIn(){
+            return this.$store.getters.loggedIn
+        },
+        instorage(){
+          return !!localStorage.getItem('myToken')
+        }
+      },
 }
 </script>
 
@@ -24,7 +36,7 @@ export default {
 *{
     padding: 0;
     margin: 0;
-    /*box-sizing: border-box;*/
+    box-sizing: border-box;
     min-width: 300px;
     }
 #app{

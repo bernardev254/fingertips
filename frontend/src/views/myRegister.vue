@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-    <myHeader text="Header"/>
+    <myHeader text="Register"/>
     <div class="form">
         <div class="input">
             <label id="lbl">Username</label>
@@ -50,7 +50,7 @@ export default{
                 "password": this.password
             };
 
-            const response = await fetch("http://fingertips.bkaraba.tech/api/v1/auth/register",{
+            const response = await fetch("http://127.0.0.1:5000/api/v1/auth/register",{
                 method: "POST",
                 mode: "cors",
                 headers: {
@@ -95,34 +95,38 @@ export default{
 }
 #lbl{
     margin-left: 20px;
+    font-size: 20px;
 }
 .input input{
     width: 80%; 
-    height:30px;
+    height:50px;
     margin:10px 20px ;  
-    border: 1px solid aqua;
-    border-radius: 4px;     
+    border-radius: 4px;
+    background-color: rgb(232, 240, 254);
+    border: none;   
 }
 .register{
     border-radius: 5px;
-    background-color:  #7CAFC4;
+    background-color: rgb(6, 70, 27);
     color:white;
-    width: 20%;
-    height: 30px;
+    width: 40%;
+    height: 50px;
     margin-left: 20px;
-    font-size: 14px;
+    font-size: x-large;
     margin-bottom: 20px;
     margin-right: 50px;
+    margin-top: 15px;
+    
 }
 .login{
     margin-left: 20px;
-    font-size: 14px;
+    font-size: 24px;
     margin-bottom: 20px;
     border-radius: 5px;
-    width: 20%;
-    height: 30px;
+    width: 30%;
+    height: 50px;
     color: white;
-    background-color: rgb(0, 183, 255);
+    background-color:  #7CAFC4;
 }
 button:hover{
     background-color: #1E2749;
