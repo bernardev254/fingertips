@@ -53,6 +53,7 @@ def register():
             'username': username,
             'email': email
             }), 201
+
 @auth.route('/login',methods=['POST'])
 @cross_origin()
 def login():

@@ -1,5 +1,7 @@
 from crypt import methods
 from email import message
+import requests
+from bs4 import BeautifulSoup as soup
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_cors import cross_origin, CORS
@@ -7,6 +9,30 @@ from backend.database import Bookmark, db
 
 bookmarks = Blueprint("bookmarks", __name__, url_prefix='/api/v1/bookmarks')
 CORS(bookmarks, supports_credentials=True)
+
+
+def getFavicon(domain):
+    """ a function that returns a domains favicon url"""
+    if 'http' not in domain:
+        domain = 'http://' + domain
+    page = requests.get(domain)
+    mysoup = soup(page.text, features="lxml")
+    icon_link = mysoup.find("link", rel="shortcut icon")
+    if icon_link is None:
+        icon_link = mysoup.find("link", rel="icon")
+    if icon_link is None:
+        return domain + '/favicon.ico'
+    return icon_link["href"]
+
+def getTittle(domain):
+    ''' returns domains title'''
+    if 'http' not in domain:
+        domain = 'http://' + domain
+    page = requests.get(domain)
+    mysoup = soup(page.text)
+    title = mysoup.title.get_text()
+    return title
+
 
 @cross_origin(origins='*',methods=['POST','OPTIONS'])
 @bookmarks.route('/new', methods=['POST','OPTIONS'])
@@ -37,7 +63,25 @@ def add_bookmark():
         return jsonify({
             "error":"error saving bookmark"
         }), 500
-        
+
+@cross_origin(origins='*',methods=['POST','OPTIONS'])
+@bookmarks.route('/getBookmarkDetails', methods=['POST','OPTIONS'])
+@jwt_required()
+def get_bookmark_details():
+    if request.method == 'OPTIONS':
+        return jsonify({"msg":"success"}), 200
+    data = request.get_json()
+    url = data.get("url")
+    try:
+        icon = getFavicon(url)
+        title = getTittle(url)
+        return jsonify({
+            "icon": icon,
+            "title": title
+        }), 200
+    except Exception:
+        return jsonify({"error":"invalid url"}), 404
+    
 
 @cross_origin(methods=['DELETE','OPTIONS'])
 @bookmarks.route('/remove', methods=['DELETE',])
