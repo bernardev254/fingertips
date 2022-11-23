@@ -57,22 +57,23 @@ export default{
     height: 100%;    
 }
 .head .logo .logo-img{
-    height: 100%;
+    margin-left: 0;
+    object-fit: contain;
     
 }
 .head .logo .logo-img img{
   object-fit: contain;
-  vertical-align: middle;  
-  border-radius: 50%;
-  object-fit: contain;
-  height:50%;
-  width: 50%;
+  vertical-align: middle;
+  margin-top: -20%;  
+  margin-left: -10%;
+  height:150px;
+  width: 150px;
 }
 .head .logo .name{
     color:rgb(43, 43, 109);
     font-size: 30px;
-    margin-left: 55%;
-    margin-top: -38%;
+    margin-left: 75%;
+    margin-top: -58%;
 }
 .head button{
     margin-top: .2%;
@@ -93,7 +94,7 @@ export default{
     flex:2;
     height: 100%;
     margin-left: 5%;
-    margin-top: 10%;
+    margin-top: 1%;
    
 }
 .main .left p{
@@ -107,7 +108,7 @@ export default{
 }
 .main .left button{
     margin-top: 20%;
-    margin-left: 5%;
+    margin-left: 15%;
     height: 50px;
     width: 150px;
     background: rgb(5, 3, 29);
@@ -116,16 +117,16 @@ export default{
 }
 .main .right{
     flex: 1;
-    margin-top: 2%;  
+    margin-top: 1%;  
     background-color: rgba(94, 10, 10, 0);
 }
 
 .main .right img{
-    height: 100%;    
+    height: 90%;    
     width: 98%;
     object-fit: contain;
     z-index: 5;
     border-radius: 5%;
-    border: 1px  bold black;
+    border: 1px  bold rgb(0, 0, 0);
 }
 </style>

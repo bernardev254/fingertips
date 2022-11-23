@@ -1,7 +1,7 @@
 <template>
     <div class="header">
         <h1>FingerTips</h1>
-        <h2>all my bookmarks at my fingertips</h2>
+        <h2>...all your bookmarks at your fingertips</h2>
         <h1 id="tittle">{{text}}</h1>
     </div>
     

@@ -151,7 +151,7 @@ export default{
             title: "",
             url: "",
             desc: "",
-            category: "",
+            category: "unsorted",
             icon: "",
 
             myCategories: [],
@@ -332,13 +332,23 @@ export default{
             if (!this.loggedIn) {
                 this.$router.push('/login');
             }
-            
+            const response1 = await fetch("http://127.0.0.1:5000/api/v1/bookmarks/getBookmarkDetails", {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    "content-Type": "application/json",
+                    "Authorization": "Bearer "+this.token
+                },
+                body: JSON.stringify({'url':this.url}),
+            });
+            const resp = await response1.json()
+
             const bookmark = {
-                "title":this.title,
+                "title":resp.title,
                 "url": this.url,
                 "body": this.desc,
                 "category": this.category,
-                "icon": this.icon
+                "icon": resp.icon
             };
 
             const response = await fetch("http://127.0.0.1:5000/api/v1/bookmarks/new", {
@@ -398,6 +408,9 @@ export default{
     margin-top: auto;
 
 }
+.top .logout button:hover{
+    transform: translate(-4px, -4px);
+}
 
 #avatar {
   vertical-align: middle;
@@ -437,7 +450,8 @@ p{
     border-radius: 5px;
     background-color: aliceblue;
     z-index: 1;
-    height:95%;
+    height:98%;
+    width:85%;
     top:5px;
     
 }
@@ -536,7 +550,7 @@ p{
     background-color: #fff;
     border-radius: 5px;
     max-height: min-content;
-    overflow-y: scroll;
+    
 }
 .nobooks{
     width: 100%;
@@ -603,6 +617,7 @@ p{
     display:block;
     background-color: rgb(198, 215, 230);
     z-index: 99;
+    overflow-y: scroll;
    
 }
 .container .main .web .options{
